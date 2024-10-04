@@ -1,0 +1,9 @@
+Koristit cemo F#.
+Svaka linija koda u funkcionalnim programskim jezicima je izraz, vraca neku vrijednost.
+Umjesto petji koriste se rekurzivne funkcije.
+Liste su veoma bitna struktura podataka u funkcionalnom programiranju.
+Preferirani code editor je Visual Studio Code.
+Sve funkcije u funkcionalnom programiranju su ciste funkcije.
+Cista funkcija nema popratnih efekata i uvijek za dati ulaz daje isti izlaz.
+Funkcionalni programski jezici su bazirani na lambda calculus-u.
+Postoji interoperabilnost na .NET platformi (npr. C# objekti se mogu korsititi u F#).
