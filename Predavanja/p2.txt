@@ -1,0 +1,23 @@
+Po default-u svi .NET jezici (ukljucujuci F#) koriste UTF-16, sto znaci da podrzaju znakove kao čćžšđ, pa cak i japanski kanji, smajlije i slicno.
+
+sbyte - signed byte
+float - double iz c++ (IEEE 754 double precision)
+
+dotnet fsi - komanda efektivno za pokretanje F# interpretera
+
+F# ne dozvoljava implicitne konverzije.
+Npr. 0.1m + 0.2m = 0.3 daje error, jer je sa lijeve strane jednakosti decimal, a sa desne strane je float, slicno i 0.1 + 0.3m daje error.
+
+Nejednakost u F# se predstavlja operatorom <>.
+GRESKA U PREZENTACIJI: umjesto \| treba biti samo | (npr. ili operator umjesto \|\| (na prezentaciji) treba ||).
+
+Right shift: ako je tip vrijednosti koju shiftamo signed radi se aritmeticki shift, ako je unsigned popunjava se nulama.
+
+Vezivanje se jedino dogodi ukoliko se dogodi match pri pattern matching-u.
+Potreban uslov za vezivanje je da unutar patterna imaju simboli.
+
+Jednom kad se vrijednost zaveze za simbol (ime, varijablu) vise se ne moze mijenjati.
+Varijabla u pattern matching-u nema nikakve veze sa varijablama u imperativnim programskim jezicima (npr. c++).
+
+Identifier pattern se uvijek moze vezati za vrijednost.
+Najbolji pattern je meho.
