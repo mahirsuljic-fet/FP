@@ -1,0 +1,16 @@
+let fn par = expr1 in expr2
+fn u prethodnoj liniji koda nije pattern nego je ime za simbol koji predstavlja datu lambdu.
+
+Lamda je zapravo "porodica" tipova. Lamda tipovi se oznacavaju sa tip1 -> tip2.
+
+Sljedeci kod:
+let foo x = x + x in foo 1
+foo 2
+je uredu jer se foo 2 prakticno tretira kao let _ = foo 2
+
+F# ima dvije ekstenzije .fs i .fsx, o njihovim razlikama cemo kasnije govorit.
+
+Kljucna rijec inline omogucava pravljenje polimorfnih funkcija.
+^a -> 'b znaci slicno kao da su a i b templatirani tipovi (u c++).
+Tip a je isto kao i typename a, a tip b (reko profesor) nije 100% kao typename b, ali je slicno.
+a i b su placeholderi.
