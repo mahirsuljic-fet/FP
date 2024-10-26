@@ -1,0 +1,15 @@
+Kljucna rijec inline oznacava da je data funkcija polimorfna, i to compile-time polimorfna, kao template u c++.
+Ovaj koncept ne postoji u vecini funkcionalnih programskih jezika (npr. u Haskell-u nema ovoga, moraju se neke ekstenzije ukljuciti).
+Ako vidimo unit kao ulaz ili izlaz funkcije, najvjerovatnije ima popratnih efekata.
+Ako simbol ima prazno mjesto to je ok, ali mora se okruziti sa `` (npr. ``ovo je simbol``).
+
+Funkcije u F# mogu uzeti samo jedan parametar.
+Moze se simulirati uzimanje vise parametara koristenjem currying-a.
+
+U F# mozemo definisati svoje operatore, i donekle uticat na njegovu asocijativnost i prioritet.
+U Haskell-u imamo punu kontrolu nad operatorima koje definisemo (ukljucujuci punu kontrolu asocijativnosti i prioriteti).
+
+Odabir karaktera koje koristimo pri definiciji operatora utice na njegov prioritet i asocijativnost.
+Ako definisemo operator npr. (@+), imat ce istu asocijativnost i prioritet kao +.
+Unarni operatori moraju pocinjati sa ! (mogu sa jos par nekih karaktera).
+Svi nativni operatori (oni koji ne definisemo mi kao npr.: +, -, >, ...) su funkcije (kao i u c++).
