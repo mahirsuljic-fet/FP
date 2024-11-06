@@ -30,7 +30,7 @@ let nanoSecondsToMicroSeconds (x : float) : float = x / 1000.0
 
 let measurements = loadMeasurements()
 printfn "%A" measurements
-// dotnet fsi p4.fsx < < (cat measures.log)
+// dotnet fsi p4.fsx < <(cat measures.log)
 
 let result = measurements |> Map.toList |> List.map snd |> List.map nanoSecondsToMicroSeconds |> List.sort |> List.take 5
 printfn "%A" result
