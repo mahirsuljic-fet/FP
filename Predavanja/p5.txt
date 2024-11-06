@@ -1,0 +1,37 @@
+if expr1 then expr2 else expr3
+
+expr1 mora vracati bool.
+Mozemo izostaviti else dio, ali expr2 mora vracati unit.
+
+
+match expr with
+| par1 -> expr1
+| par2 -> expr2
+...
+| parn -> exprn
+
+Svi expr1 ... exprn moraju vracati isti tip.
+
+
+Kljucna rijec rec oznacava da je funkcija rekurzivna.
+F# kompajler uvijek moze optimizirati tail rekurzivne funkcije.
+
+
+Tail rekurzivna implementacija funkcije koja sumira brojeve od 0 do x:
+let suma x =
+    let rec loop akumulator n =
+        match n with
+        | 0 -> akumulator
+        | _ -> loop (akumulator + n) (n - 1)
+
+    loop 0 x
+
+let n = 5
+
+printfn "%d" (suma n)
+
+
+Record lici na struct u c/c++.
+
+type tip = { member1: int; member2: float }
+let foo = { member1 = 1; member2 = 1.0 }      // ispred { ne govorimo sta pravimo, kompajler sam zakljucava
