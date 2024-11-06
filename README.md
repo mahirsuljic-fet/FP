@@ -13,3 +13,7 @@ Profesorove prezentacije iz predmeta.
 
 ## [Vjezbe](./Vjezbe)
 Kod i primjeri sa vježbi.
+
+### Komanda za brisanje NIX cache
+_Koristi se kako bi mogli preuzeti najnoviju verziju shell-a._ \
+`rm -rf ~/.cache/nix/`
