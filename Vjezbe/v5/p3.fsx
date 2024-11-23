@@ -48,16 +48,16 @@ let rec v5filter (f: ('a -> bool)) (list: V5L<'a>) : V5L<'a> =
 let (@@) a b = v5append a b
 
 // quick sort, zbog jednostavnosti uzimamo da je pivot prvi element
-let rec v5sort (f: ('a -> bool)) (list: V5L<'a>) : V5L<'a> =
+let rec v5sort (f: ('a -> 'a -> bool)) (list: V5L<'a>) : V5L<'a> =
     match list with
     | Kraj -> Kraj
     | V5El(x, xs) ->
-        let manji = v5filter (f x) xs
-        let veci = v5filter (f x |> not) xs
+        let manji = v5filter (f x >> not) xs
+        let veci = v5filter (f x) xs
         v5sort f manji @@ V5El(x, Kraj) @@ v5sort f veci
-        // DZ
 
 let sumList2 = v5foldl (+) 0 lst2
 
 printfn "%d" sumList2
 printfn "%A" (v5append lst1 lst2)
+printfn "%A" (v5sort (fun x y -> x < y) lst1)
