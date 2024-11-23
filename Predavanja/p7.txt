@@ -1,0 +1,12 @@
+F# kompajlira polimorfnu funkciju kada vidi njenu definicij, za razliku od c++ koji kompajlira kada se ona pozove.
+
+
+let foo f x y = (f x, f y)
+Kompajler od f pravi monomorfnu funkciju pri pozivu.
+
+Svi F# tipovi moraju podrzavati print i poredjenje.
+
+option<'a> je isto sto i a' option
+
+map je jedna od najbitnijih funkcija, stalno cemo je koristiti.
+foldl je jos bitnija
