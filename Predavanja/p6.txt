@@ -1,0 +1,13 @@
+Record uzorak
+pat1, pat2, ..., patn se svi moraju podudariti.
+
+Record i tuple su prakticno ista stvar, s tim da u record-u clanovi su imenovani, a u tuple clanovi nisu imenovani.
+
+GRESKA NA PREZENTACIJI
+Descriminated union
+         ...
+  | cn of pm | tm * pm;
+          ^^
+~~~~~~~~~~~~
+
+Sirotinja ima 4GB RAMa.
