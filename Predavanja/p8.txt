@@ -1,0 +1,32 @@
+Namespace ne moze imati direktno varijable, ali mozemo definisat tipove (type ...).
+
+
+module TopL
+
+[<AutoOpen>]
+module Local1 = 
+  let foo = "foo"
+
+
+Da nema AutoOpen, ukoliko bi otvorili TopL ne bi se ucitao foo, morali bi mu pristupati pomocu Local1.foo.
+
+Kod se ne prevodi u assembler, nego u Common Language Runtime Asembly, odnosno bytecode.
+Bytecode je jezik izmisljenog procesora koji ne postoji u praksi.
+Dobijeni fajlovi se nazivaju Assemblies.
+Pokrecu se dotNet virtuelnom masinom.
+
+pp hehehe
+
+dotnet new TIP -lang JEZIK -n IME
+TIP -> classlib, console, ...
+JEZIK -> F# ili C#
+IME -> neki string
+
+dotnet build
+dotnet run
+
+dotnet add DESTINATION_PROJEKAT reference SOURCE_PROJEKAT
+
+dotnet new sln -n NAME
+
+dotnet sln add SOURCE

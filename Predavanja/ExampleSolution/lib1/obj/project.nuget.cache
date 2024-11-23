@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DkduL9to4p2zSTgaVjUF9SFAqP9tc+BLXDwLnaCRkNyyg4VBnm8nBjUYth2ckjEtqdY0LxaAJNtITRYLXMCpoQ==",
+  "success": true,
+  "projectFilePath": "/home/mahir/Documents/FET/FP/Predavanja/ExampleSolution/lib1/lib1.fsproj",
+  "expectedPackageFiles": [
+    "/home/mahir/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512"
+  ],
+  "logs": []
+}
