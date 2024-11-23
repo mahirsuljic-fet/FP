@@ -36,82 +36,140 @@
 //
 // Podatke prikazivati u metrickim jedinicama, a temperaturu u stepenima Celzija.
 
-type Datum = {
-  dan: int
-  mjesec: int
-  godina: int
-}
+type Datum = { dan: int; mjesec: int; godina: int }
 
-let imeMjeseca ({mjesec=m:int }: Datum) : string =
-  match m with
-  | 1 -> "Januar"
-  | 2 -> "Februar"
-  | 3 -> "Mart"
-  | 4 -> "April"
-  | 5 -> "Maj"
-  | 6 -> "Juni"
-  | 7 -> "Juli"
-  | 8 -> "August"
-  | 9 -> "Septembar"
-  | 10 -> "Oktobar"
-  | 11 -> "Novembar"
-  | 12 -> "Decembar"
-  | _ -> "?"
+let imeMjeseca ({ mjesec = m: int }: Datum) : string =
+    match m with
+    | 1 -> "Januar"
+    | 2 -> "Februar"
+    | 3 -> "Mart"
+    | 4 -> "April"
+    | 5 -> "Maj"
+    | 6 -> "Juni"
+    | 7 -> "Juli"
+    | 8 -> "August"
+    | 9 -> "Septembar"
+    | 10 -> "Oktobar"
+    | 11 -> "Novembar"
+    | 12 -> "Decembar"
+    | _ -> "???"
 
-type Padavine = 
-  | kolicina of double
-  | zanemarivo
-  | nikako
+type Padavine =
+    | Kolicina of float
+    | Zanemarivo
+    | Nikako
 
-type TempRecord = {
-  datum: Datum
-  tmax: double
-  tmin: double
-  tavg: double
-  departure: double
-  hdd: double
-  cdd: double
-  padavine: Padavine
-  noviSnijeg: Padavine
-  dubinaSnijega: Padavine
-}
+type TempRecord =
+    { datum: Datum
+      tmax: float
+      tmin: float
+      tavg: float
+      departure: float
+      hdd: float
+      cdd: float
+      padavine: Padavine
+      noviSnijeg: Padavine
+      dubinaSnijega: Padavine }
 
 let toCelsius (temp: float) : float = (temp - 32.0) / 1.8
 let toCm (len: float) : float = len * 2.54
+
 let stringToDatum (str: string) : Datum =
-  match str with
-  | [|danStr:string,mjStr:string,godStr:string|] -> 
-      {
-        dan = int danStr
-        mjesec = int mjStr
-        godina = int godStr
-      }
-  | _ -> failwith "Nevalidan format datuma"
+    match str.Split(separator = '/') with
+    | [| danStr: string; mjStr: string; godStr: string |] ->
+        { dan = int danStr
+          mjesec = int mjStr
+          godina = int godStr }
+    | _ -> failwith "Nevalidan format datuma"
 
 let stringToPadavine (str: string) : Padavine =
-  match str with
-  | [||] ->
-  | _ -> failwith "Nevalidne padavine"
+    match str with
+    | "T" -> Zanemarivo
+    | "0" -> Nikako
+    | n when float n > 0 -> Kolicina(toCm (float n))
+    | _ -> failwith "Nevalidne padavine"
 
 let ucitajPodatke () : list<TempRecord> =
-  let header = System.Console.ReadLine()
-  let rec processLine () : list<TempRecord> =
-    let line : string = System.Console.ReadLine()
-    if line = null then []
-    else
-    match line.Split(separator = ',') with
-    | [|date: string,tmax: string,tmin: string,tavg: string,departure: string,HDD: string,CDD: string,precipitation: string,new_snow: string,snow_depth: string|]
-    let tempRecord = {
-      datum = stringToDatum date
-      tmax = double tmax
-      tmin = double tmin
-      tavg = double tavg
-      departure = double departure
-      hdd = double hdd
-      cdd = double cdd
-      padavine = stringToPadavine precipitation
-      noviSnijeg = stringToPadavine new_snow
-      dubinaSnijega = stringToPadavine snow_depth
-    }
+    let _ = System.Console.ReadLine() // odbacujemo header
 
-printfn "%A" (ucitajPodatke())
+    let rec processLine () : list<TempRecord> =
+        let line: string = System.Console.ReadLine()
+
+        if line = null then
+            []
+        else
+            match line.Split(separator = ',') with
+            | [| date: string
+                 tmax: string
+                 tmin: string
+                 tavg: string
+                 departure: string
+                 hdd: string
+                 cdd: string
+                 precipitation: string
+                 new_snow: string
+                 snow_depth: string |] ->
+                let tempRecord =
+                    { datum = stringToDatum date
+                      tmax = toCelsius (float tmax)
+                      tmin = toCelsius (float tmin)
+                      tavg = toCelsius (float tavg)
+                      departure = float departure
+                      hdd = float hdd
+                      cdd = float cdd
+                      padavine = stringToPadavine precipitation
+                      noviSnijeg = stringToPadavine new_snow
+                      dubinaSnijega = stringToPadavine snow_depth }
+
+                tempRecord :: (processLine ())
+            | _ -> []
+
+    processLine ()
+
+let formatRecord (temp: TempRecord) : string =
+    match temp with
+    | { datum = datum
+        tmax = tmax
+        tmin = tmin
+        tavg = tavg
+        departure = departure
+        hdd = hdd
+        cdd = cdd
+        padavine = padavine
+        noviSnijeg = noviSnijeg
+        dubinaSnijega = dubinaSnijega } ->
+        let maxTemp = sprintf "%.2f" tmax
+        let minTemp = sprintf "%.2f" tmin
+        let avgTemp = sprintf "%.2f" tavg
+
+        let perc =
+            match padavine with
+            | Kolicina n -> sprintf "%.2f" n + "cm"
+            | Zanemarivo -> "zanemarivo"
+            | Nikako -> "nikako"
+
+        let newSnow =
+            match noviSnijeg with
+            | Kolicina n -> sprintf "%.2f" n + "cm"
+            | Zanemarivo -> "zanemarivo"
+            | Nikako -> "nikako"
+
+        let snowDepth =
+            match dubinaSnijega with
+            | Kolicina n -> sprintf "%.2f" n + "cm"
+            | Zanemarivo -> "zanemarivo"
+            | Nikako -> "nikako"
+
+        $"\
+	Date:       {datum.dan}. {imeMjeseca datum} 20{datum.godina}.\n\
+	Max temp:   {maxTemp}°C\n\
+	Min temp:   {minTemp}°C\n\
+	Avg temp:   {avgTemp}°C\n\
+	Departure:  {departure}\n\
+	HDD:        {hdd}\n\
+	CDD:        {cdd}\n\
+	Perc:       {perc}\n\
+	New snow:   {newSnow}\n\
+	Snow depth: {snowDepth}\n"
+
+ucitajPodatke () |> List.map formatRecord |> List.iter (printfn "%s")
