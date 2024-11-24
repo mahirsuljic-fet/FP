@@ -15,5 +15,5 @@ Profesorove prezentacije iz predmeta.
 Kod i primjeri sa vježbi.
 
 ### Komanda za brisanje NIX cache
-_Koristi se kako bi mogli preuzeti najnoviju verziju shell-a._ \
-`rm -rf ~/.cache/nix/`
+Ukoliko se skine okruženje i u nekog kraćem periodu (npr. 1 dan) izađe nova verzija okruženja neće biti moguće preuzeti novu verziju dok ne prođe taj period.
+Čekanje se može zaobići brisanjem cache-a komandom `rm -rf ~/.cache/nix/`.
