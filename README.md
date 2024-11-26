@@ -11,8 +11,11 @@ Bilješke sa predavanja.
 ## [Prezentacije](./Prezentacije)
 Profesorove prezentacije iz predmeta.
 
-## [Vjezbe](./Vjezbe)
+## [Vježbe](./Vjezbe)
 Kod i primjeri sa vježbi.
+
+## [Zadaci](./Zadaci)
+Random zadaci koje sam smislio dok sam vježbao.
 
 ### [Skripta za instalaciju/update okruženja](./getfsshell.sh)
 Za pokretanje skripte koristi se komanda `. ./getfsshell.sh` pri čemu je potrebno biti u direktoriji gdje se nalazi `getfsshell.sh`.
