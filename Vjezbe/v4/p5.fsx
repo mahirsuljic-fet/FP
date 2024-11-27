@@ -142,23 +142,15 @@ let formatRecord (temp: TempRecord) : string =
         let minTemp = sprintf "%.2f" tmin
         let avgTemp = sprintf "%.2f" tavg
 
-        let perc =
+        let formatPadavine padavine =
             match padavine with
             | Kolicina n -> sprintf "%.2f" n + "cm"
             | Zanemarivo -> "zanemarivo"
             | Nikako -> "nikako"
 
-        let newSnow =
-            match noviSnijeg with
-            | Kolicina n -> sprintf "%.2f" n + "cm"
-            | Zanemarivo -> "zanemarivo"
-            | Nikako -> "nikako"
-
-        let snowDepth =
-            match dubinaSnijega with
-            | Kolicina n -> sprintf "%.2f" n + "cm"
-            | Zanemarivo -> "zanemarivo"
-            | Nikako -> "nikako"
+        let perc = formatPadavine padavine
+        let newSnow = formatPadavine noviSnijeg
+        let snowDepth = formatPadavine dubinaSnijega
 
         $"\
 	Date:       {datum.dan}. {imeMjeseca datum} 20{datum.godina}.\n\
