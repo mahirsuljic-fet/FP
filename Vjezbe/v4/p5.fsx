@@ -36,6 +36,13 @@
 //
 // Podatke prikazivati u metrickim jedinicama, a temperaturu u stepenima Celzija.
 
+
+// Kod sam pisao sa ciljem da sto vise koristim record-e, tuple-e, match, fold, rekurziju, itd.
+// Htio sam da na sto vise nacina pokusam iskoristiti pomenute koncepte
+// Zadatak se moze puno ljepse uraditi koristenjem ekstenzija tipa List kao sto su maxBy, minBy i slicno
+// Dakle, kod nije bas citljiv, ali nadam se da ce nekome pomoc bar malo
+
+
 // TIPOVI
 type Datum = { dan: int; mjesec: int; godina: int }
 
@@ -75,6 +82,7 @@ let imeMjeseca (brMjeseca: int) : string =
     | _ -> "???"
 
 let toCelsius (temp: float) : float = (temp - 32.0) / 1.8
+
 let toCm (len: float) : float = len * 2.54
 
 let stringToDatum (str: string) : Datum =
@@ -187,13 +195,26 @@ let podaci: List<TempRecord> = ucitajPodatke ()
 // rjesenja nisam puno provjeravao, ali imaju logike
 // ako neko nadje neku gresku neka mi javi
 
+// foldFun je koristeno kao ime za funkciju koja ce se koristiti u List.fold
+// soFar  - koristeno u imenima varijabli koje "zapamte" najvecu/najmanju vrijednost do sada (so far)
+// Record - koristeno u imenima varijabli da se naglasi da varijabla "cuva" neki record
+// Month - mjesec, koristeno u imenima varijabli koje oznacavaju redni broj nekog mjeseca
+// listElement - jedan clan iz liste koja je koristena u List.fold, onaj do kojeg smo dosli
+// lista[n] - je zapravo ekstenzija [] na tipu List (ekvivalentno je sa lista.[n]) i radi kao c operator [] na nizu
+// impl - unutarnja implementacija vanjske funkcije, koristeno da se izbjegne potreba za prosljedjivanjem argumenata vanjskoj funkciji
+// current - trenutno, koristeno u imenima varijabli koje se odnose na nesto sto se trenutno analizira
+// Temp - temperatura, koristeno u imenima varijabli
+// avg - average, prosjek, koristeno u imenima varijabli
+// min - minimum, najmanje, koristeno u imenima varijabli
+// max - maximum, najvece, koristeno u imenima varijabli
+
 
 // Kog dana je zabiljezena najvisa temperatura i njena vrijednost
 let (maxTempDatum, maxTemp) =
-    let foldFun (lhs: TempRecord) (rhs: TempRecord) : TempRecord =
-        match lhs with
-        | lhs when lhs.tmax > rhs.tmax -> lhs
-        | _ -> rhs
+    let foldFun (maxTempRecordSoFar: TempRecord) (listElement: TempRecord) : TempRecord =
+        match maxTempRecordSoFar with
+        | maxSoFar when maxSoFar.tmax > listElement.tmax -> maxSoFar
+        | _ -> listElement
 
     let maxTempRecord = List.fold foldFun podaci[0] podaci
     (maxTempRecord.datum, maxTempRecord.tmax)
@@ -201,10 +222,10 @@ let (maxTempDatum, maxTemp) =
 
 // Kog dana je zabiljezena najmanja temperatura i njena vrijednost
 let (minTempDatum, minTemp): (Datum * float) =
-    let foldFun (lhs: TempRecord) (rhs: TempRecord) : TempRecord =
-        match lhs with
-        | lhs when lhs.tmin < rhs.tmin -> lhs
-        | _ -> rhs
+    let foldFun (minTempRecordSoFar: TempRecord) (listElement: TempRecord) : TempRecord =
+        match minTempRecordSoFar with
+        | minSoFar when minSoFar.tmin < listElement.tmin -> minSoFar
+        | _ -> listElement
 
     let minTempRecord = List.fold foldFun podaci[0] podaci
     (minTempRecord.datum, minTempRecord.tmin)
@@ -212,7 +233,7 @@ let (minTempDatum, minTemp): (Datum * float) =
 
 // Prosjecna temperatura u toku godine
 let avgTempFullYear: float =
-    let foldFun (sum: float) (tempRec: TempRecord) : float = sum + tempRec.tavg
+    let foldFun (sum: float) (listElement: TempRecord) : float = sum + listElement.tavg
 
     let sumRecord = List.fold foldFun 0.0 podaci
     sumRecord / float podaci.Length
@@ -220,18 +241,18 @@ let avgTempFullYear: float =
 
 // Prosjecno temperaturno odstupanje u toku godine
 let avgTempDepartureFullYear: float =
-    let foldFun (sum: float) (tempRec: TempRecord) : float = sum + tempRec.departure
+    let foldFun (sum: float) (listElement: TempRecord) : float = sum + listElement.departure
 
-    let sumRecord = List.fold foldFun 0.0 podaci
-    sumRecord / float podaci.Length
+    let sum = List.fold foldFun 0.0 podaci
+    sum / float podaci.Length
 
 
 // Kog dana je zabiljezeno najvece (apsolutno) temperaturno odstupanje i njena vrijednost
 let (maxDepartureDatum, maxDeparture): (Datum * float) =
-    let foldFun (lhs: TempRecord) (rhs: TempRecord) : TempRecord =
-        match lhs with
-        | lhs when abs (lhs.departure) > abs (rhs.departure) -> lhs
-        | _ -> rhs
+    let foldFun (maxDepartureRecordSoFar: TempRecord) (listElement: TempRecord) : TempRecord =
+        match maxDepartureRecordSoFar with
+        | maxSoFar when abs (maxSoFar.departure) > abs (listElement.departure) -> maxSoFar
+        | _ -> listElement
 
     let maxDepartureRecord = List.fold foldFun podaci[0] podaci
     (maxDepartureRecord.datum, maxDepartureRecord.tmin)
