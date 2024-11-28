@@ -1,0 +1,49 @@
+Intrisicne ekstenzije se kompajliraju zajedno sa tipom u kojem su napravljene.
+
+...
+member NESTO.IME = ...
+
+NESTO moze biti bilo sta, ali konvencija je da se koristi this ili self:
+...
+member this.IME = ...
+
+Uvodjenjem ekstenzija u generalnom slucaju gubi se type inference (automatsko zakljucivanje tipova), ali dobijamo overloadanje.
+Dakle, na ekstenzijama su dozvoljeni overloadi.
+Da bi overload radio moramo koristiti tuple.
+
+? ispred parametra znaci da je taj parametar opcionalan.
+
+Ako zelimo da staticne ekstenzije nekog tipa koristimo kao funkcije u trenutnom modulu koristimo:
+open type IME_TIPA
+Npr.
+open type Complex.T
+
+Kljucna rijec mutable nakon let oznacava da je data varijabla stvarno promjenjiva i predstavlja memorijsku lokaciju, kao i varijable u c++.
+Dodjeljivanje vrijednosti se radi pomocu operatora <-.
+U F# zelimo sto vise da izbjegnemo mutabilnost, ali neophodno je koristiti u nekim slucajevima, npr. kad koristimo neki C# API.
+
+Koristimo byref<TIP> da uzmemo nesto po vrijednosti i mijenjamo (kao referenca u c++, byref<T> je kao T&).
+Koristimo inref<TIP> da uzmemo nesto po vrijednosti i samo citamo (kao konstantna referenca u c++, inref<T> je kao const T&).
+Argument prosljedjujemo po referenci tako sto ispred argumenta koristimo & (npr. &varijabla |> funkcija).
+
+Svaki put kad se konstruise instanca neke klase izvrsava se kod koji slijedi nakon do.
+
+static do se izvrsava kad se u .NET runtime ucita taj tip.
+
+Property ima ime i ponasa se kao da je clan tog tipa, ali taj clan zapravo ne postoji.
+Property su automatski public.
+Property trebaju da imaju dva metoda getter (vraca vrijednost) i setter (postavlja vrijednost).
+
+Sve definicije privatnih clanova (let) moraju biti prije member definicija.
+
+(~-) je unarni - operator
+
+type C(a: 'a, b: 'b)
+  ...
+  member this.Foo(x: 'a) ...
+
+U kodu iznad 'a koje je tip od x je drugi tip od 'a koji je tip od a.
+
+Ako u klasi imamo bar jedan apstraktan metod moramo prije definicije klase (iznad type) napisati [<AbstractClass>].
+
+TEST ZA 2 SEDMICE.
