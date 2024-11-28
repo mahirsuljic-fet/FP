@@ -36,23 +36,8 @@
 //
 // Podatke prikazivati u metrickim jedinicama, a temperaturu u stepenima Celzija.
 
+// TIPOVI
 type Datum = { dan: int; mjesec: int; godina: int }
-
-let imeMjeseca ({ mjesec = m: int }: Datum) : string =
-    match m with
-    | 1 -> "Januar"
-    | 2 -> "Februar"
-    | 3 -> "Mart"
-    | 4 -> "April"
-    | 5 -> "Maj"
-    | 6 -> "Juni"
-    | 7 -> "Juli"
-    | 8 -> "August"
-    | 9 -> "Septembar"
-    | 10 -> "Oktobar"
-    | 11 -> "Novembar"
-    | 12 -> "Decembar"
-    | _ -> "???"
 
 type Padavine =
     | Kolicina of float
@@ -70,6 +55,24 @@ type TempRecord =
       padavine: Padavine
       noviSnijeg: Padavine
       dubinaSnijega: Padavine }
+
+
+// POMOCNE FUNKCIJE (konverzija i formatiranje)
+let imeMjeseca (brMjeseca: int) : string =
+    match brMjeseca with
+    | 1 -> "Januar"
+    | 2 -> "Februar"
+    | 3 -> "Mart"
+    | 4 -> "April"
+    | 5 -> "Maj"
+    | 6 -> "Juni"
+    | 7 -> "Juli"
+    | 8 -> "August"
+    | 9 -> "Septembar"
+    | 10 -> "Oktobar"
+    | 11 -> "Novembar"
+    | 12 -> "Decembar"
+    | _ -> "???"
 
 let toCelsius (temp: float) : float = (temp - 32.0) / 1.8
 let toCm (len: float) : float = len * 2.54
@@ -89,6 +92,49 @@ let stringToPadavine (str: string) : Padavine =
     | n when float n > 0 -> Kolicina(toCm (float n))
     | _ -> failwith "Nevalidne padavine"
 
+let formatDatum (datum: Datum) : string =
+    sprintf $"{datum.dan}. {datum.mjesec |> imeMjeseca} 20{datum.godina}."
+
+let formatPadavine padavine =
+    match padavine with
+    | Kolicina n -> sprintf "%.2f" n + "cm"
+    | Zanemarivo -> "zanemarivo"
+    | Nikako -> "nikako"
+
+let formatRecord (temp: TempRecord) : string =
+    match temp with
+    | { datum = datum
+        tmax = tmax
+        tmin = tmin
+        tavg = tavg
+        departure = departure
+        hdd = hdd
+        cdd = cdd
+        padavine = padavine
+        noviSnijeg = noviSnijeg
+        dubinaSnijega = dubinaSnijega } ->
+        let maxTemp = sprintf "%.2f" tmax
+        let minTemp = sprintf "%.2f" tmin
+        let avgTemp = sprintf "%.2f" tavg
+
+        let perc = formatPadavine padavine
+        let newSnow = formatPadavine noviSnijeg
+        let snowDepth = formatPadavine dubinaSnijega
+
+        $"\
+	Date:       {datum.dan}. {imeMjeseca datum.mjesec} 20{datum.godina}.\n\
+	Max temp:   {maxTemp}°C\n\
+	Min temp:   {minTemp}°C\n\
+	Avg temp:   {avgTemp}°C\n\
+	Departure:  {departure}\n\
+	HDD:        {hdd}\n\
+	CDD:        {cdd}\n\
+	Perc:       {perc}\n\
+	New snow:   {newSnow}\n\
+	Snow depth: {snowDepth}\n"
+
+
+// FUNKCIJA ZA PARSIRANJE PODATAKA IZ FAJLA nyc_temperature.csv
 let ucitajPodatke () : list<TempRecord> =
     let _ = System.Console.ReadLine() // odbacujemo header
 
@@ -126,42 +172,252 @@ let ucitajPodatke () : list<TempRecord> =
 
     processLine ()
 
-let formatRecord (temp: TempRecord) : string =
-    match temp with
-    | { datum = datum
-        tmax = tmax
-        tmin = tmin
-        tavg = tavg
-        departure = departure
-        hdd = hdd
-        cdd = cdd
-        padavine = padavine
-        noviSnijeg = noviSnijeg
-        dubinaSnijega = dubinaSnijega } ->
-        let maxTemp = sprintf "%.2f" tmax
-        let minTemp = sprintf "%.2f" tmin
-        let avgTemp = sprintf "%.2f" tavg
 
-        let formatPadavine padavine =
-            match padavine with
-            | Kolicina n -> sprintf "%.2f" n + "cm"
-            | Zanemarivo -> "zanemarivo"
-            | Nikako -> "nikako"
+// Lista sa parsiranim podacima pohranjenim u TempRecord tip
+let podaci: List<TempRecord> = ucitajPodatke ()
 
-        let perc = formatPadavine padavine
-        let newSnow = formatPadavine noviSnijeg
-        let snowDepth = formatPadavine dubinaSnijega
 
-        $"\
-	Date:       {datum.dan}. {imeMjeseca datum} 20{datum.godina}.\n\
-	Max temp:   {maxTemp}°C\n\
-	Min temp:   {minTemp}°C\n\
-	Avg temp:   {avgTemp}°C\n\
-	Departure:  {departure}\n\
-	HDD:        {hdd}\n\
-	CDD:        {cdd}\n\
-	Perc:       {perc}\n\
-	New snow:   {newSnow}\n\
-	Snow depth: {snowDepth}\n"
 
-ucitajPodatke () |> List.map formatRecord |> List.iter (printfn "%s")
+// ZADACI
+//
+// nisam imao puno inspiracije za imena varijabli
+// provjera je sutra, nenaspavan sam
+// ako je kod tezak za citat izvinjavam se
+//
+// rjesenja nisam puno provjeravao, ali imaju logike
+// ako neko nadje neku gresku neka mi javi
+
+
+// Kog dana je zabiljezena najvisa temperatura i njena vrijednost
+let (maxTempDatum, maxTemp) =
+    let foldFun (lhs: TempRecord) (rhs: TempRecord) : TempRecord =
+        match lhs with
+        | lhs when lhs.tmax > rhs.tmax -> lhs
+        | _ -> rhs
+
+    let maxTempRecord = List.fold foldFun podaci[0] podaci
+    (maxTempRecord.datum, maxTempRecord.tmax)
+
+
+// Kog dana je zabiljezena najmanja temperatura i njena vrijednost
+let (minTempDatum, minTemp): (Datum * float) =
+    let foldFun (lhs: TempRecord) (rhs: TempRecord) : TempRecord =
+        match lhs with
+        | lhs when lhs.tmin < rhs.tmin -> lhs
+        | _ -> rhs
+
+    let minTempRecord = List.fold foldFun podaci[0] podaci
+    (minTempRecord.datum, minTempRecord.tmin)
+
+
+// Prosjecna temperatura u toku godine
+let avgTempFullYear: float =
+    let foldFun (sum: float) (tempRec: TempRecord) : float = sum + tempRec.tavg
+
+    let sumRecord = List.fold foldFun 0.0 podaci
+    sumRecord / float podaci.Length
+
+
+// Prosjecno temperaturno odstupanje u toku godine
+let avgTempDepartureFullYear: float =
+    let foldFun (sum: float) (tempRec: TempRecord) : float = sum + tempRec.departure
+
+    let sumRecord = List.fold foldFun 0.0 podaci
+    sumRecord / float podaci.Length
+
+
+// Kog dana je zabiljezeno najvece (apsolutno) temperaturno odstupanje i njena vrijednost
+let (maxDepartureDatum, maxDeparture): (Datum * float) =
+    let foldFun (lhs: TempRecord) (rhs: TempRecord) : TempRecord =
+        match lhs with
+        | lhs when abs (lhs.departure) > abs (rhs.departure) -> lhs
+        | _ -> rhs
+
+    let maxDepartureRecord = List.fold foldFun podaci[0] podaci
+    (maxDepartureRecord.datum, maxDepartureRecord.tmin)
+
+
+// Kog dana je palo najvise snijega i kolicina u cm
+// Kog dana je zabiljezena najveca dubina snijega u cm
+let (maxNewSnowRecord, maxSnowDepthRecord): (TempRecord * TempRecord) =
+    let foldFun
+        (maxNewSoFar: TempRecord, maxDepthSoFar: TempRecord)
+        (listElement: TempRecord)
+        : (TempRecord * TempRecord) =
+        let maxNew =
+            match listElement with
+            | listElement when listElement.noviSnijeg > maxNewSoFar.noviSnijeg -> listElement
+            | _ -> maxNewSoFar
+
+        let maxDepth =
+            match listElement with
+            | listElement when listElement.dubinaSnijega > maxDepthSoFar.dubinaSnijega -> listElement
+            | _ -> maxDepthSoFar
+
+        (maxNew, maxDepth)
+
+    List.fold foldFun (podaci[0], podaci[0]) podaci
+
+let (maxNewSnowDatum, maxNewSnowPadavine): (Datum * string) =
+    (maxNewSnowRecord.datum, maxNewSnowRecord.noviSnijeg |> formatPadavine)
+
+let (maxSnowDepthDatum, maxSnowDepthPadavine): (Datum * string) =
+    (maxSnowDepthRecord.datum, maxSnowDepthRecord.dubinaSnijega |> formatPadavine)
+
+
+// U kom mjesecu je zabiljezena najvisa prosjecna temperatura i njena vrijednost
+// U kom mjesecu je zabiljezena najniza prosjecna temperatura i njena vrijednost
+
+// Ako trazimo temperaturu samo jednog dana (u kojem je mjesecu)
+let (maxAvgTemp, maxAvgTempMjesec, minAvgTemp, minAvgTempMjesec): (float * int * float * int) =
+    let foldFun
+        (maxSoFar: float, maxSoFarMjesec: int, minSoFar: float, minSoFarMjesec: int)
+        (listElement: TempRecord)
+        : (float * int * float * int) =
+        match listElement with
+        | { tavg = currentAvg; datum = datum } when currentAvg > maxSoFar ->
+            (currentAvg, datum.mjesec, minSoFar, minSoFarMjesec)
+        | { tavg = currentAvg; datum = datum } when currentAvg < minSoFar ->
+            (maxSoFar, maxSoFarMjesec, currentAvg, datum.mjesec)
+        | _ -> (maxSoFar, maxSoFarMjesec, minSoFar, minSoFarMjesec)
+
+    List.fold foldFun (podaci[0].tavg, podaci[0].datum.mjesec, podaci[0].tavg, podaci[0].datum.mjesec) podaci
+
+// Ako trazimo temperaturu u cijelom mjesecu
+let getMonthAvgTemp (mjesec: int) : float =
+    let foldFun (sum: float, count: int) (listElement: TempRecord) =
+        match listElement with
+        | { datum = datum; tavg = tavg } when datum.mjesec = mjesec -> (sum + tavg, count + 1)
+        | _ -> (sum, count)
+
+    let (sum: float, count: int) = List.fold foldFun (0.0, 0) podaci
+    sum / float count
+
+let getMonthTempList () : List<(float * int)> =
+    let startMonth = 12
+
+    let rec impl (currentMonth: int) : List<(float * int)> =
+        match currentMonth with
+        | n when n > 0 -> (getMonthAvgTemp n, n) :: impl (n - 1)
+        | _ -> []
+
+    impl startMonth
+
+let monthTempList: List<(float * int)> = getMonthTempList ()
+
+let (maxMonthTemp, maxTempMonth): (float * int) =
+    let getMax (maxTempSoFar: float, maxTempMonthSoFar: int) (listElement: (float * int)) =
+        match listElement with
+        | (temp, month) when temp > maxTempSoFar -> (temp, month)
+        | _ -> (maxTempSoFar, maxTempMonthSoFar)
+
+    List.fold getMax monthTempList[0] monthTempList
+
+let (minMonthTemp, minTempMonth): (float * int) =
+    let getmin (minTempSoFar: float, minTempMonthSoFar: int) (listElement: (float * int)) =
+        match listElement with
+        | (temp, month) when temp < minTempSoFar -> (temp, month)
+        | _ -> (minTempSoFar, minTempMonthSoFar)
+
+    List.fold getmin monthTempList[0] monthTempList
+
+
+// U kom mjesecu je estimiran najvisi prosjek neophodne energije
+
+// Ako trazimo u kojem mjesecu je dan kada je najvise energije trebalo
+let maxAvgEnergyMonth: int =
+    let foldFun (maxAvgEnergySoFar: float, maxMonthSoFar: int) (listElement: TempRecord) : (float * int) =
+        match listElement with
+        | { hdd = hdd; cdd = cdd; datum = datum } when hdd + cdd > maxAvgEnergySoFar -> (hdd + cdd, datum.mjesec)
+        | _ -> (maxAvgEnergySoFar, maxMonthSoFar)
+
+    let (_, mjesec) =
+        List.fold foldFun (podaci[0].hdd + podaci[0].cdd, podaci[0].datum.mjesec) podaci
+
+    mjesec
+
+// Ako trazimo u cijelom mjesecu kada je prosjecno najvise energije trebalo
+let getMonthAvgEnergy (mjesec: int) : float =
+    let foldFun (sum: float, count: int) (listElement: TempRecord) =
+        match listElement with
+        | { datum = datum; hdd = hdd; cdd = cdd } when datum.mjesec = mjesec -> (sum + (hdd + cdd), count + 1)
+        | _ -> (sum, count)
+
+    let (sum: float, count: int) = List.fold foldFun (0.0, 0) podaci
+    sum / float count
+
+let getMonthEnergyList () : List<(float * int)> =
+    let startMonth = 12
+
+    let rec impl (currentMonth: int) : List<(float * int)> =
+        match currentMonth with
+        | n when n > 0 -> (getMonthAvgEnergy n, n) :: impl (n - 1)
+        | _ -> []
+
+    impl startMonth
+
+let monthEnergyList: List<(float * int)> = getMonthEnergyList ()
+
+let maxEnergyMonth: int =
+    let getMax (maxEnergySoFar: float, maxEnergyMonthSoFar: int) (listElement: (float * int)) =
+        match listElement with
+        | (energy, month) when energy > maxEnergySoFar -> (energy, month)
+        | _ -> (maxEnergySoFar, maxEnergyMonthSoFar)
+
+    let (_, month) = List.fold getMax monthEnergyList[0] monthEnergyList
+    month
+
+
+// Kog dana je zabiljezena najveca temperaturna razlika
+let maxTempDiffDatum: Datum =
+    let foldFun (maxDiffSoFar: float, maxDiffDatumSoFar: Datum) (listElement: TempRecord) : (float * Datum) =
+        match listElement with
+        | { datum = datum
+            tmax = tmax
+            tmin = tmin } when tmax - tmin > maxDiffSoFar -> (tmax - tmin, datum)
+        | _ -> (maxDiffSoFar, maxDiffDatumSoFar)
+
+    let (_, datum) =
+        List.fold foldFun (podaci[0].tmax - podaci[0].tmin, podaci[0].datum) podaci
+
+    datum
+
+
+// Ispis svih podataka
+podaci |> List.map formatRecord |> List.iter (printfn "%s")
+
+// Ispis rjesenja zadataka
+printfn "MaxTemp              -> %.2f°C" maxTemp
+printfn "MaxTempDate          -> %s" (maxTempDatum |> formatDatum)
+
+printfn "MinTemp              -> %.2f°C" minTemp
+printfn "MinTempDate          -> %s" (minTempDatum |> formatDatum)
+
+printfn "AvgTemp              -> %.2f°C" avgTempFullYear
+printfn "AvgTempDeparture     -> %.2f°C" avgTempDepartureFullYear
+
+printfn "MaxDeparture         -> %.2f°C" maxDeparture
+printfn "MaxDepartureDate     -> %s" (maxDepartureDatum |> formatDatum)
+
+printfn "MaxNewSnowDate       -> %s" (maxNewSnowDatum |> formatDatum)
+printfn "MaxNewSnow           -> %s" maxNewSnowPadavine
+
+printfn "MaxSnowDepthDate     -> %s" (maxSnowDepthDatum |> formatDatum)
+printfn "MaxSnowDepth         -> %s" maxSnowDepthPadavine
+
+printfn "MaxAvgTempInMonth_v1 -> %.2f°C" maxAvgTemp
+printfn "MaxAvgTempMonth_v1   -> %s" (maxAvgTempMjesec |> imeMjeseca)
+
+printfn "MinAvgTempInMonth_v1 -> %.2f°C" minAvgTemp
+printfn "MinAvgTempMonth_v1   -> %s" (minAvgTempMjesec |> imeMjeseca)
+
+printfn "MaxAvgTempInMonth_v2 -> %.2f°C" maxMonthTemp
+printfn "MaxAvgTempMonth_v2   -> %s" (maxTempMonth |> imeMjeseca)
+
+printfn "MinAvgTempInMonth_v2 -> %.2f°C" minMonthTemp
+printfn "MinAvgTempMonth_v2   -> %s" (minTempMonth |> imeMjeseca)
+
+printfn "MaxAvgEnergyMonth_v1 -> %s" (maxAvgEnergyMonth |> imeMjeseca)
+printfn "MaxAvgEnergyMonth_v2 -> %s" (maxEnergyMonth |> imeMjeseca)
+
+printfn "MaxTempDiffDay       -> %s" (maxTempDiffDatum |> formatDatum)
