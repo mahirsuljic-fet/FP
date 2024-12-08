@@ -1,4 +1,4 @@
-#load "list.fs"
+#load "MyList.fs"
 open MyList
 
 let list1 = 1 @@ 2 @@ 3 @@ End
@@ -79,6 +79,10 @@ printfn "%A" (MyList.Length End)
 
 (*
 printfn "%A" (MyList.Map (fun x -> float x * 2.5) list1)
+*)
+
+(*
+MyList.Map (printf "|%d|") list1
 *)
 
 (*

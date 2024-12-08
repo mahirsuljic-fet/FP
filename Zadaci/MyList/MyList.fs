@@ -118,6 +118,10 @@ let rec Map (f: 'a -> 'b) (list: MyList<'a>) : MyList<'b> =
     | End -> End
     | El(x, xs) -> El(f x, Map f xs)
 
+let Iter (f: 'a -> unit) (list: MyList<'a>) : unit =
+    Map f list
+    ()
+
 let rec Sort (comp: 'a -> 'a -> bool) (list: MyList<'a>) : MyList<'a> =
     match list with
     | End -> End
