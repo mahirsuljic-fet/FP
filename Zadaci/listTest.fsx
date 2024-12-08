@@ -3,6 +3,8 @@ open MyList
 
 let list1 = 1 @@ 2 @@ 3 @@ End
 let list2 = End |@ 3 |@ 2 |@ 1
+let listStr = "123" @@ "12345" @@ "12" @@ "1234" @@ End
+let bigList = 6 @@ 3 @@ 9 @@ 0 @@ 7 @@ -2 @@ 2 @@ -3 @@ 5 @@ End
 
 printfn "list1 -> %A" list1
 printfn "list2 -> %A" list2
@@ -80,10 +82,6 @@ printfn "%A" (MyList.Map (fun x -> float x * 2.5) list1)
 *)
 
 (*
-let listStr = "123" @@ "12345" @@ "12" @@ "1234" @@ End
-*)
-
-(*
 printfn "%A" (MyList.Min list1)
 printfn "%A" (MyList.MinBy (fun (x: string) -> x.Length) listStr)
 printfn "%A" (MyList.tryMin End)
@@ -98,4 +96,8 @@ printfn "%A" (MyList.Max End)
 *)
 
 (*
+printfn "%A" (Sort (<) bigList)
+printfn "%A" (Sort (>) bigList)
+printfn "%A" (Sort (fun (x: string) (y: string) -> x.Length < y.Length) listStr)
+printfn "%A" (Sort (fun (x: string) (y: string) -> x.Length > y.Length) listStr)
 *)

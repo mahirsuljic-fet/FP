@@ -100,6 +100,8 @@ let rec Append (listL: MyList<'a>) (listR: MyList<'a>) : MyList<'a> =
     | End -> listR
     | El(x, xs) -> El(x, Append xs listR)
 
+let (@) = Append
+
 let rec Filter (f: 'a -> bool) (list: MyList<'a>) : MyList<'a> =
     match list with
     | End -> End
@@ -116,6 +118,13 @@ let rec Map (f: 'a -> 'b) (list: MyList<'a>) : MyList<'b> =
     | End -> End
     | El(x, xs) -> El(f x, Map f xs)
 
+let rec Sort (comp: 'a -> 'a -> bool) (list: MyList<'a>) : MyList<'a> =
+    match list with
+    | End -> End
+    | El(x, xs) ->
+        let left = Filter (comp x >> not) xs
+        let right = Filter (comp x) xs
+        Sort comp left @ El(x, End) @ Sort comp right
 
 let rec tryCompareBy (comp: 'b -> 'b -> bool) (f: 'a -> 'b) (list: MyList<'a>) : option<'a> =
     match list with
