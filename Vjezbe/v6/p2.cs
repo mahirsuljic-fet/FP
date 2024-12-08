@@ -7,7 +7,6 @@ public interface IRide
     string GetStatus();
     void UpdateStatus(string status);
 }
-
 public class Ride : IRide
 {
     public int Id { get; }
@@ -16,14 +15,14 @@ public class Ride : IRide
     private double Cost { get; }
     private string Status { get; set; }
 
-    public Ride(int id, string pickup, string dropoff, double cost)
+  public Ride(int id, string pickup, string dropoff, double cost)
     {
-        Id = id;
+  Id = id;
         PickupLocation = pickup;
         DropoffLocation = dropoff;
         Cost = cost;
         Status = "Available";
-    }
+  }
 
     public double GetCost() => Cost;
     public string GetStatus() => Status;
@@ -36,7 +35,7 @@ public class PremiumRide : Ride
 
     public PremiumRide(int id, string pickup, string dropoff, double cost, string vehicleType)
         : base(id, pickup, dropoff, cost * 1.5)
-    {
+  {
         VehicleType = vehicleType;
     }
 
