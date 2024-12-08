@@ -1,0 +1,38 @@
+Pri inicijalizacije liste moze se koristit for petlja, koji nazivamo generator.
+
+Ako je nakon for -> tada se koristi vrijednost koju vrati izraz koji slijedi nakon ->,
+ako je nakon for do, to nije slucaj.
+
+[for VAR in RANGE do
+  if USLOV then VRIJEDNOST
+]
+
+Ovo je efektivno filter.
+Prolazi kroz RANGE, za svaku vrijednost provjerava uslov i ako ga ispuni u listu dodaje VRIJEDNOST.
+
+U ovom slucaju pravila za if nisu ista, tj. npr. ako se izostavi else ne mora se vratiti unit.
+
+Operator @ radi konkatenaciju listi.
+
+VEOMA BITNO poznavat funkcije iz kontejnera, npr. iz List.
+
+Poenta je da se ne koriste petlje i rekurzija, nego da pisemo kod koristeci funkcije.
+
+Array je jedini kontejner koji nije funkcionalan i koji je mutable.
+Array je kao std::vector u c++.
+
+U objektno orjentiranom domenu (kad radimo sa mutable objektima),
+ako kazemo foo = bar, i foo i bar su reference na isti objekat koji se nalazi na heap-u.
+
+List i Array se mogu indeksirati skalarima ([0], [1], [2], ...) ili se moze koristiti slicing ([1..5], [..5], [2..], [1..2..10], ...).
+
+F# je jedino lazy sa seq kontejnerom.
+Vecinom F# je eager, sto znaci da generise podatke kad se definisu,
+a lazy znaci da generise podatke kad se pristupa njima.
+
+Dakle:
+let s2 = {0..2..10}
+ne stavlja nista u memoriju sve dok im se ne pristupi.
+
+Computation expression se pise kao ime pa zatim viticaste zagrade:
+let foo = IME { ... }
