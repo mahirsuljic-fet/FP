@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MovieManagement", "MovieManagement\MovieManagement.fsproj", "{0E31D357-0A78-4366-9300-E662B7A0DCC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseAPI", "DatabaseAPI\DatabaseAPI.csproj", "{AA5F919C-EEF4-4CFC-9437-A80552E3F0BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E31D357-0A78-4366-9300-E662B7A0DCC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E31D357-0A78-4366-9300-E662B7A0DCC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E31D357-0A78-4366-9300-E662B7A0DCC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E31D357-0A78-4366-9300-E662B7A0DCC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA5F919C-EEF4-4CFC-9437-A80552E3F0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5F919C-EEF4-4CFC-9437-A80552E3F0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5F919C-EEF4-4CFC-9437-A80552E3F0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5F919C-EEF4-4CFC-9437-A80552E3F0BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

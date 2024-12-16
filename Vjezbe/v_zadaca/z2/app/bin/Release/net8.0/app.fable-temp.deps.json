@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "app.fable-temp/1.0.0": {
+        "runtime": {
+          "app.fable-temp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "app.fable-temp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
