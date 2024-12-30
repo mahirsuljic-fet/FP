@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("app")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2bb4334738e4f51cf431aaba343f04bba2b4c477")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ae8369e5cb8bbe154a51c03f84560b4c79bc8b0")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("app")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("app")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]

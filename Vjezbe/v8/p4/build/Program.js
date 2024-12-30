@@ -7,9 +7,9 @@ import { append, singleton as singleton_1, ofArray, filter, length, map as map_1
 import { Cmd_none } from "./fable_modules/Fable.Elmish.4.0.0/cmd.fs.js";
 import { singleton } from "./fable_modules/fable-library-js.4.24.0/AsyncBuilder.js";
 import { sleep } from "./fable_modules/fable-library-js.4.24.0/Async.js";
+import { join, printf, toConsole } from "./fable_modules/fable-library-js.4.24.0/String.js";
 import { Cmd_OfAsync_start, Cmd_OfAsyncWith_perform } from "./fable_modules/Fable.Elmish.4.0.0/cmd.fs.js";
 import { createElement } from "react";
-import { join } from "./fable_modules/fable-library-js.4.24.0/String.js";
 import { reactApi } from "./fable_modules/Feliz.2.9.0/Interop.fs.js";
 import { ProgramModule_mkProgram, ProgramModule_run } from "./fable_modules/Fable.Elmish.4.0.0/program.fs.js";
 import { Program_withReactSynchronous } from "./fable_modules/Fable.Elmish.React.4.0.0/react.fs.js";
@@ -142,7 +142,10 @@ export function update(msg, state) {
             }
             else {
                 const shakenCards = shakeCard(newCards);
-                const wait2sec = () => singleton.Delay(() => singleton.Bind(sleep(2000), () => singleton.Return(undefined)));
+                const wait2sec = () => singleton.Delay(() => singleton.Bind(sleep(2000), () => {
+                    toConsole(printf("Delayed print"));
+                    return singleton.Zero();
+                }));
                 const cmdfoo = () => (new Message(1, []));
                 return [new State(0, [new Game(shakenCards)]), Cmd_OfAsyncWith_perform((x) => {
                     Cmd_OfAsync_start(x);

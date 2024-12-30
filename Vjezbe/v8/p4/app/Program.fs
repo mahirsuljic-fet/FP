@@ -91,7 +91,13 @@ let update (msg: Message) (state: State) : State * Cmd<'Msg> =
                 Cmd.none
             else
                 let shakenCards = shakeCard newCards
-                let wait2sec () = async { do! Async.Sleep 2000 }
+
+                let wait2sec () =
+                    async {
+                        do! Async.Sleep 2000
+                        printfn "Delayed print"
+                    }
+
                 let cmdfoo () = DeselectAll
 
                 Initial
