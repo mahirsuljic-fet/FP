@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("MovieManagement")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab301a5cda63dddbedebe19f39aa39c030f37e68")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2bb4334738e4f51cf431aaba343f04bba2b4c477")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("MovieManagement")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("MovieManagement")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]
