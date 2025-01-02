@@ -14,8 +14,14 @@ Profesorove prezentacije iz predmeta.
 ## [Vježbe](./Vjezbe)
 Kod i primjeri sa vježbi.
 
-## [Zadaci](./Zadaci)
+## [Random](./Random)
 Random zadaci koje sam smislio dok sam vježbao.
+
+## [Zadaće](./Zadace)
+Zadaće zadane u toku semestra.
+- #### [Zadaća 1](./Zadace/Zadaca1/)
+    - [Movie Management Database](./Zadace/Zadaca1/Zadatak1/)
+    - [Calculator](./Zadace/Zadaca1/Zadatak2/)
 
 ### [Skripta za instalaciju/update okruženja](./getfsshell.sh)
 Za pokretanje skripte koristi se komanda `. ./getfsshell.sh` pri čemu je potrebno biti u direktoriji gdje se nalazi `getfsshell.sh`.
