@@ -1,0 +1,7 @@
+Async znaci da ne znamo kad ce se izvrsiti.
+
+do! ...
+je ekvivalent sa 
+let! _ = ...
+
+do! se moze koristiti samo kada proracun vraca unit.
