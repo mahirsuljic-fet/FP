@@ -1,0 +1,14 @@
+{
+  "name": "jsproj",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "fable watch .. -o . --run vite dev .",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.1"
+  }
+}

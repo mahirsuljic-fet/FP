@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CTSb2FTQMzx5oEwGVC66/D1s7OaIzwbt4GOx8T031lRjamYkl84lbQ5XSjV2nso5dEAd50aj90KUkbYxJsOYfA==",
+  "success": true,
+  "projectFilePath": "/home/mahir/Documents/FET/FP/Predavanja/p11/example/foobar/foobar.fsproj",
+  "expectedPackageFiles": [
+    "/home/mahir/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512"
+  ],
+  "logs": []
+}

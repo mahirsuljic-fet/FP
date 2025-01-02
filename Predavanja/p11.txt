@@ -1,0 +1,5 @@
+GDB?
+
+Lazy nvim plugins u okruzenju?
+
+markdown -> HTML?

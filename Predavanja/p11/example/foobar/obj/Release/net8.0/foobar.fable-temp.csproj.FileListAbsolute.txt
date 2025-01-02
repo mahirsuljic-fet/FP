@@ -1,0 +1,6 @@
+/home/mahir/Documents/FET/FP/Predavanja/p11/example/foobar/bin/Release/net8.0/foobar.fable-temp.deps.json
+/home/mahir/Documents/FET/FP/Predavanja/p11/example/foobar/bin/Release/net8.0/foobar.fable-temp.runtimeconfig.json
+/home/mahir/Documents/FET/FP/Predavanja/p11/example/foobar/obj/Release/net8.0/foobar.fable-temp.GeneratedMSBuildEditorConfig.editorconfig
+/home/mahir/Documents/FET/FP/Predavanja/p11/example/foobar/obj/Release/net8.0/foobar.fable-temp.AssemblyInfoInputs.cache
+/home/mahir/Documents/FET/FP/Predavanja/p11/example/foobar/obj/Release/net8.0/foobar.fable-temp.AssemblyInfo.cs
+/home/mahir/Documents/FET/FP/Predavanja/p11/example/foobar/obj/Release/net8.0/foobar.fable-temp.genruntimeconfig.cache
