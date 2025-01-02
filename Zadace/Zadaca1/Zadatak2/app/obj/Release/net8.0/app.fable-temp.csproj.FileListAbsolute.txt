@@ -1,0 +1,6 @@
+/home/mahir/Documents/FET/FP/Zadaca/Calculator/app/bin/Release/net8.0/app.fable-temp.deps.json
+/home/mahir/Documents/FET/FP/Zadaca/Calculator/app/bin/Release/net8.0/app.fable-temp.runtimeconfig.json
+/home/mahir/Documents/FET/FP/Zadaca/Calculator/app/obj/Release/net8.0/app.fable-temp.GeneratedMSBuildEditorConfig.editorconfig
+/home/mahir/Documents/FET/FP/Zadaca/Calculator/app/obj/Release/net8.0/app.fable-temp.AssemblyInfoInputs.cache
+/home/mahir/Documents/FET/FP/Zadaca/Calculator/app/obj/Release/net8.0/app.fable-temp.AssemblyInfo.cs
+/home/mahir/Documents/FET/FP/Zadaca/Calculator/app/obj/Release/net8.0/app.fable-temp.genruntimeconfig.cache

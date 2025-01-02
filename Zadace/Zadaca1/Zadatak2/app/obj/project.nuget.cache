@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "WYBSH3pHfrLjvrjeNsYObkwJyFZ9Z6pmcIZdn8f/c2NRyqg3MrKDVeKZEHG3m1yxsLDs+o6jh5DsdCDiWDCMcg==",
+  "success": true,
+  "projectFilePath": "/home/mahir/Documents/FET/FP/Zadaca/Calculator/app/app.fsproj",
+  "expectedPackageFiles": [
+    "/home/mahir/.nuget/packages/elmish/4.2.0/elmish.4.2.0.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.ast/4.2.1/fable.ast.4.2.1.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.browser.blob/1.1.4/fable.browser.blob.1.1.4.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.browser.dom/2.4.4/fable.browser.dom.2.4.4.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.browser.event/1.4.4/fable.browser.event.1.4.4.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.browser.gamepad/1.0.3/fable.browser.gamepad.1.0.3.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.browser.webstorage/1.0.4/fable.browser.webstorage.1.0.4.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.core/3.7.1/fable.core.3.7.1.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.elmish/4.0.0/fable.elmish.4.0.0.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.elmish.react/4.0.0/fable.elmish.react.4.0.0.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.react.types/18.3.0/fable.react.types.18.3.0.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fable.reactdom.types/18.2.0/fable.reactdom.types.18.2.0.nupkg.sha512",
+    "/home/mahir/.nuget/packages/feliz/2.9.0/feliz.2.9.0.nupkg.sha512",
+    "/home/mahir/.nuget/packages/feliz.compilerplugins/2.2.0/feliz.compilerplugins.2.2.0.nupkg.sha512",
+    "/home/mahir/.nuget/packages/fsharp.core/8.0.102/fsharp.core.8.0.102.nupkg.sha512"
+  ],
+  "logs": []
+}

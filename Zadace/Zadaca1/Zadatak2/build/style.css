@@ -1,0 +1,59 @@
+body {
+	background-color: #363062;
+}
+
+.container {
+	margin: auto;
+	padding: 0.75em;
+	border-radius: 0.75em;
+	background-color: #50577A;
+	max-width: fit-content;
+
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+button {
+	width: 2.5em;
+	height: 2.5em;
+	font-size: 2.5em;
+	border: none;
+	border-radius: 0.75em;
+	margin: 0.1em;
+}
+
+.btn-num {
+	background-color: #6E85B2;
+}
+
+.btn-op {
+	background-color: #818FB4;
+}
+
+.btn-eq {
+	background-color: #27496D;
+}
+
+.btn-clr {
+	background-color: #27496D;
+}
+
+.display {
+	height: 2.5em;
+	font-size: 2.5em;
+	line-height: 2.5em;
+	border-radius: 0.75em;
+	background-color: #404258;
+	text-align: right;
+	margin: 0.2em 0;
+	padding: 0 0.3em;
+	vertical-align: middle;
+	max-inline-size: 10.2em;
+	min-inline-size: 10.2em;
+	display: flex;
+	justify-content: flex-end;
+	white-space: nowrap;
+	overflow: hidden;
+}
