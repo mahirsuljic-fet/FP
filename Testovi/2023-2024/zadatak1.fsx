@@ -78,15 +78,16 @@ let baza3 = // pri cemu nije odzvoljeno definisati polje ovdje
       staz = 3
       info = "060333333", "baza3@mail.com" }
 
-let baza4 = { // pozicija {} nije toliko bitna
+let baza4 =
+    { // pozicija {} nije toliko bitna
       ime = "baza4"
       staz = 4
-      info = "060444444", "baza4@mail.com" 
-    }
+      info = "060444444", "baza4@mail.com" }
 
 let baza5 =
-// ovo je takodjer dozvoljeno, ali proklinjat ce vas ko god procita ovaj kod
-  { ime = "baza5"; staz = 5; // bitni su ;
+    // ovo je takodjer dozvoljeno, ali proklinjat ce vas ko god procita ovaj kod
+    { ime = "baza5"
+      staz = 5 // bitni su ;
       info = "060555555", "baza5@mail.com" }
 
 // nacin 3 (kao nacin 1)
@@ -94,7 +95,6 @@ let lista3 = [ baza1; baza2; baza3; baza4; baza5 ]
 
 // nacin 4 (kao nacin 2)
 let lista4 = baza1 :: baza2 :: baza3 :: baza4 :: baza5 :: []
-
 
 
 
@@ -106,6 +106,16 @@ let lista4 = baza1 :: baza2 :: baza3 :: baza4 :: baza5 :: []
 // pri cemu nema nikakvih popratnih efekata
 
 // potpuna funkcija je funkcija koja za svaki output moze proizvesti output (nema iznimki)
+
+
+// funkcija za testiranje search funkcija, ovo ignorisati
+// i da, parametri funkcije se mogu odvojiti u nove redove
+let testSearch (searchFunction: string -> Baza list -> Baza option) (ime: string) (lista: Baza list) =
+    let result = lista |> searchFunction ime
+
+    match result with
+    | Some x -> printfn "Pronadjen element sa imenom %s" x.ime
+    | None -> printfn "Nije pronadjen element sa imenom %s" ime
 
 
 // pretpostavljam da je profesor htio da se funkcija implementira
@@ -120,10 +130,21 @@ let lista4 = baza1 :: baza2 :: baza3 :: baza4 :: baza5 :: []
 // u svakom slucaju, eto sta je moguce, najbolje pitat profesora/asistenta u toku testa
 
 
-// nacin 1 - rekurzivno i vracamo option
+// ako bi nam dopustili da koristimo funkcije iz modula List,
+// tada mozemo koristiti funkciju List.tryFind
+// zasto tryFind, a ne find?
+// problem sa find je sto ona baza iznimku u slucaju da trazeni element ne postoji
+// funkcija tryFind vraca tip option, pa ako ne nadje element vraca None
+
 // Baza list   je isto sto i list<Baza>
 // Baza option je isto sto i option<Baza>
-let trySearchRecursive (lista: Baza list) (ime: string) : Baza option =
+let trySearchList (ime: string) (lista: Baza list) : Baza option =
+    let predicate (element: Baza) : bool = element.ime = ime
+    List.tryFind predicate lista
+
+
+// nacin 1 - rekurzivno i vracamo option
+let trySearchRecursive (ime: string) (lista: Baza list) : Baza option =
     // mozemo iskoristiti closure umjesto da napravimo jos jedan parametar za ime koje pretrazujemo
     let rec searchList (currentList: Baza list) =
         match currentList with
@@ -146,7 +167,7 @@ let trySearchRecursive (lista: Baza list) (ime: string) : Baza option =
 
 
 // nacin 2 - koristeci fold, vracamo option
-let trySearchFold (lista: Baza list) (ime: string) : Baza option =
+let trySearchFold (ime: string) (lista: Baza list) : Baza option =
     let foldFunc (acumulator: Baza option) (rhs: Baza) =
         match acumulator with
         | Some _ -> acumulator
@@ -158,24 +179,17 @@ let trySearchFold (lista: Baza list) (ime: string) : Baza option =
     List.fold foldFunc initialAcumulator lista
 
 
+testSearch trySearchList "baza1" lista1
+testSearch trySearchList "baza5" lista1
+testSearch trySearchList "baza0" lista1
 
-// funkcija za testiranje
-// i da, parametri funkcije se mogu odvojiti u nove redove
-let testSearch (searchFunction: Baza list -> string -> Baza option) (lista: Baza list) (ime: string) =
-    let result = searchFunction lista ime
+testSearch trySearchRecursive "baza1" lista1
+testSearch trySearchRecursive "baza5" lista1
+testSearch trySearchRecursive "baza0" lista1
 
-    match result with
-    | Some x -> printfn "Pronadjen element sa imenom %s" x.ime
-    | None -> printfn "Nije pronadjen element sa imenom %s" ime
-
-
-testSearch trySearchRecursive lista1 "baza1"
-testSearch trySearchRecursive lista1 "baza5"
-testSearch trySearchRecursive lista1 "baza0"
-
-testSearch trySearchFold lista1 "baza1"
-testSearch trySearchFold lista1 "baza5"
-testSearch trySearchFold lista1 "baza0"
+testSearch trySearchFold "baza1" lista1
+testSearch trySearchFold "baza5" lista1
+testSearch trySearchFold "baza0" lista1
 
 
 
@@ -183,13 +197,30 @@ testSearch trySearchFold lista1 "baza0"
 // c) //
 ////////
 
+// ako bi nam dozvolili da koristimo funkcije iz modula List
+// onda se ovo moze uraditi sa funkcijom List.map na sljedeci nacin
+
+let removeTelephoneList (ime: string) (lista: Baza list) : Baza list =
+    let mapFunc (element: Baza) : Baza =
+        if element.ime = ime then
+            { element with
+                info = "", (element.info |> snd) } // snd vraca drugi element tuple-a
+        else
+            element
+
+    lista |> List.map mapFunc
+
+
+// u suprotnom, moze se rijesiti pomocu funkcije foldBack (foldr) ili rekurzivno
+
+
 // nacin 1 - koristeci fold
-let removeTelephoneFold (lista: Baza list) (ime: string) : Baza list =
+let removeTelephoneFold (ime: string) (lista: Baza list) : Baza list =
     let foldFun (element: Baza) (acumulator: Baza list) : Baza list =
         let newElement =
             if element.ime = ime then
                 { element with
-                    info = "", (element.info |> snd) } // snd vraca drugi element tuple-a
+                    info = "", (element.info |> snd) }
             else
                 element
 
@@ -200,7 +231,7 @@ let removeTelephoneFold (lista: Baza list) (ime: string) : Baza list =
     List.foldBack foldFun lista initialAcumulator
 
 // nacin 2 - koristeci rekurziju
-let removeTelephoneRecursive (lista: Baza list) (ime: string) : Baza list =
+let removeTelephoneRecursive (ime: string) (lista: Baza list) : Baza list =
     let rec removeFromList (currentList: Baza list) =
         match currentList with
         | [] -> []
@@ -218,15 +249,19 @@ let removeTelephoneRecursive (lista: Baza list) (ime: string) : Baza list =
 
 
 
-let testRemoveTelephone (removeFunction: Baza list -> string -> Baza list) (lista: Baza list) (ime: string) : unit =
+let testRemoveTelephone (removeFunction: string -> Baza list -> Baza list) (ime: string) (lista: Baza list) : unit =
     printfn "\nBrisanje telefona elementa sa imenom %s" ime
-    printfn "%A" (removeFunction lista ime)
+    printfn "%A" (lista |> removeFunction ime)
 
 
-testRemoveTelephone removeTelephoneFold lista1 "baza1"
-testRemoveTelephone removeTelephoneFold lista1 "baza5"
-testRemoveTelephone removeTelephoneFold lista1 "baza0"
+testRemoveTelephone removeTelephoneList "baza1" lista1
+testRemoveTelephone removeTelephoneList "baza5" lista1
+testRemoveTelephone removeTelephoneList "baza0" lista1
 
-testRemoveTelephone removeTelephoneRecursive lista1 "baza1"
-testRemoveTelephone removeTelephoneRecursive lista1 "baza5"
-testRemoveTelephone removeTelephoneRecursive lista1 "baza0"
+testRemoveTelephone removeTelephoneFold "baza1" lista1
+testRemoveTelephone removeTelephoneFold "baza5" lista1
+testRemoveTelephone removeTelephoneFold "baza0" lista1
+
+testRemoveTelephone removeTelephoneRecursive "baza1" lista1
+testRemoveTelephone removeTelephoneRecursive "baza5" lista1
+testRemoveTelephone removeTelephoneRecursive "baza0" lista1
