@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "p/RQvVGJ7IecuCieNojyUMtMBhV/n0/+nUCyXhyk7lhClGxRjoLqvJtQnwfMB7p+05YveVKs8RqveiY8gjyFHw==",
+  "dgSpecHash": "qAU3fsFZ7+YZjoGEmzOdgL2Zug19VezVsIi1ZXfXqDg4fnmTeudxeTARTL15gkU92BMT5KiHatvIH/Qd1Ak5XA==",
   "success": true,
-  "projectFilePath": "/home/mahir/Documents/FET/FP/Zadaca/Database/DatabaseAPI/DatabaseAPI.csproj",
+  "projectFilePath": "/home/mahir/Documents/FET/FP/Zadace/Zadaca1/Zadatak1/DatabaseAPI/DatabaseAPI.csproj",
   "expectedPackageFiles": [
     "/home/mahir/.nuget/packages/microsoft.data.sqlite/9.0.0/microsoft.data.sqlite.9.0.0.nupkg.sha512",
     "/home/mahir/.nuget/packages/microsoft.data.sqlite.core/9.0.0/microsoft.data.sqlite.core.9.0.0.nupkg.sha512",

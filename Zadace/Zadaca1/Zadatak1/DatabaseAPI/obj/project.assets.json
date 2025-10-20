@@ -337,11 +337,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/mahir/Documents/FET/FP/Zadaca/Database/DatabaseAPI/DatabaseAPI.csproj",
+      "projectUniqueName": "/home/mahir/Documents/FET/FP/Zadace/Zadaca1/Zadatak1/DatabaseAPI/DatabaseAPI.csproj",
       "projectName": "DatabaseAPI",
-      "projectPath": "/home/mahir/Documents/FET/FP/Zadaca/Database/DatabaseAPI/DatabaseAPI.csproj",
+      "projectPath": "/home/mahir/Documents/FET/FP/Zadace/Zadaca1/Zadatak1/DatabaseAPI/DatabaseAPI.csproj",
       "packagesPath": "/home/mahir/.nuget/packages/",
-      "outputPath": "/home/mahir/Documents/FET/FP/Zadaca/Database/DatabaseAPI/obj/",
+      "outputPath": "/home/mahir/Documents/FET/FP/Zadace/Zadaca1/Zadatak1/DatabaseAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/mahir/.nuget/NuGet/NuGet.Config"
